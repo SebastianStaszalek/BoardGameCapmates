@@ -4,9 +4,11 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class ChallengeEntity {
 
 	private UserEntity from;
