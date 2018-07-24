@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.boardgame.domain.GameEntity;
+import com.capgemini.jstk.boardgame.domain.GamesHistoryEntity;
 import com.capgemini.jstk.boardgame.domain.UserEntity;
 import com.capgemini.jstk.boardgame.repository.UserRepository;
 
@@ -79,6 +80,14 @@ public class UserRepositoryImp implements UserRepository {
 		
 		UserEntity user = getUserByEMail(eMail);
 		user.getGamesCollection().remove(Optional.ofNullable(game));
+	}
+
+	@Override
+	public void addRegistryToGameHistory(String eMail, GamesHistoryEntity gameHistory) {
+		Preconditions.checkNotNull(eMail, EMAIL_IS_NULL);
+		
+		UserEntity user = getUserByEMail(eMail);
+		user.getGamesHistory().add(gameHistory);
 	}
 
 }
