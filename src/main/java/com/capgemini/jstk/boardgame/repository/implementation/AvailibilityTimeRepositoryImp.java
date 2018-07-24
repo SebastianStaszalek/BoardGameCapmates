@@ -62,10 +62,4 @@ public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository
 		time.setTo(null);
 		time.setComment(comment);
 	}
-
-	private void checkIfNuLL(LocalDateTime from, LocalDateTime to) throws InvalidAttributesException {
-		if (from == null || to == null) {
-			throw new InvalidAttributesException("period time cannot be empty");
-		}
-	}
 }
