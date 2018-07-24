@@ -1,6 +1,8 @@
 package com.capgemini.jstk.boardgame.domain;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -8,7 +10,7 @@ import lombok.Data;
 public class Challenge {
 
 	private User from;
-	private User to;
+	private Set<User> to;
 	private Game gameToBeChallenged;
-	private LocalDateTime dateOfChallenge;
+	private Instant dateOfChallenge;
 }
