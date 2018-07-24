@@ -7,10 +7,10 @@ import java.util.Set;
 import lombok.Data;
 
 @Data
-public class Challenge {
+public class ChallengeEntity {
 
-	private User from;
-	private Set<User> to;
-	private Game gameToBeChallenged;
+	private UserEntity from;
+	private Set<UserEntity> to;
+	private GameEntity gameToBeChallenged;
 	private Instant dateOfChallenge;
 }

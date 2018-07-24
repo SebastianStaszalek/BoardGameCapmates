@@ -8,12 +8,12 @@ import com.capgemini.jstk.boardgame.domain.enums.Result;
 import lombok.Data;
 
 @Data
-public class GamesHistory {
+public class GamesHistoryEntity {
 	
-	private Game gamePlayed;
+	private GameEntity gamePlayed;
 	private LocalDate dateOfPlay;
 	private Result result;
 	private int pointsEarned;
-	private Set<User> players;
+	private Set<UserEntity> players;
 
 }

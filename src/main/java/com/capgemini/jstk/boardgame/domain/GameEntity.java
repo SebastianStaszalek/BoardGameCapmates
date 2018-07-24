@@ -3,7 +3,7 @@ package com.capgemini.jstk.boardgame.domain;
 import lombok.Data;
 
 @Data
-public class Game {
+public class GameEntity {
 
 	private String name;
 	private String description;

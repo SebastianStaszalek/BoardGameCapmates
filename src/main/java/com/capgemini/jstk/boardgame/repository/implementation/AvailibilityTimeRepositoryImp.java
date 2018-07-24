@@ -7,8 +7,8 @@ import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.jstk.boardgame.domain.AvailibilityTime;
-import com.capgemini.jstk.boardgame.domain.User;
+import com.capgemini.jstk.boardgame.domain.AvailibilityTimeEntity;
+import com.capgemini.jstk.boardgame.domain.UserEntity;
 import com.capgemini.jstk.boardgame.repository.AvailibilityTimeRepository;
 
 @Repository
@@ -17,23 +17,23 @@ public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository
 	@Override
 	public void add(LocalDateTime from, LocalDateTime to) {
 		if (from != null && to != null) {
-			AvailibilityTime availibilityTime = new AvailibilityTime();
+			AvailibilityTimeEntity availibilityTime = new AvailibilityTimeEntity();
 			availibilityTime.setFrom(from);
 			availibilityTime.setTo(to);
 		}
 	}
 
 	@Override
-	public List<AvailibilityTime> findAll(User user) {
-		List<AvailibilityTime> timeList = user.getAvailibilityTime();
+	public List<AvailibilityTimeEntity> findAll(UserEntity user) {
+		List<AvailibilityTimeEntity> timeList = user.getAvailibilityTime();
 		return timeList;
 	}
 
 	@Override
-	public AvailibilityTime findByTimePeriod(User user, LocalDateTime from, LocalDateTime to) {
+	public AvailibilityTimeEntity findByTimePeriod(UserEntity user, LocalDateTime from, LocalDateTime to) {
 		if (from != null && to != null) {
-			List<AvailibilityTime> availibilityTime = findAll(user);
-			for (AvailibilityTime time : availibilityTime) {
+			List<AvailibilityTimeEntity> availibilityTime = findAll(user);
+			for (AvailibilityTimeEntity time : availibilityTime) {
 				//TODO: dobrze sprawdzic okresy dostepnosci!
 				if (time.getFrom().isAfter(from) && time.getTo().isBefore(to)) {
 					return time;
@@ -50,14 +50,14 @@ public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository
 	}
 
 	@Override
-	public void update(AvailibilityTime time, LocalDateTime from, LocalDateTime to, String comment) {
+	public void update(AvailibilityTimeEntity time, LocalDateTime from, LocalDateTime to, String comment) {
 		time.setFrom(from);
 		time.setTo(to);
 		time.setComment(comment);
 	}
 
 	@Override
-	public void delete(AvailibilityTime time, String comment) {
+	public void delete(AvailibilityTimeEntity time, String comment) {
 		time.setFrom(null);
 		time.setTo(null);
 		time.setComment(comment);

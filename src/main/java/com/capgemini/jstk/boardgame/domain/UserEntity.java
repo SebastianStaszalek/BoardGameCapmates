@@ -7,7 +7,7 @@ import java.util.Set;
 import lombok.Data;
 
 @Data
-public class User {
+public class UserEntity {
 	
 	//private String nickName;
 	private String firstName;
@@ -16,9 +16,9 @@ public class User {
 	private String password;
 	private String motto;
 	
-	private GamesHistory gamesHistory;
-	private Set<Game> gamesCollection;
-	private List<AvailibilityTime> availibilityTime;
+	private List<GamesHistoryEntity> gamesHistory;
+	private Set<GameEntity> gamesCollection;
+	private List<AvailibilityTimeEntity> availibilityTime;
 	
 
 }
