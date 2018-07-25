@@ -3,12 +3,15 @@ package com.capgemini.jstk.boardgame.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.capgemini.jstk.boardgame.domain.UserEntity;
 import com.capgemini.jstk.boardgame.dto.UserTO;
 
+@Component
 public class UserMapper {
 	
-	public static UserTO map(UserEntity userEntity) {
+	public UserTO map(UserEntity userEntity) {
 		if (userEntity != null) {
 			return UserTO.builder()
 					.eMail(userEntity.getEMail())
@@ -21,7 +24,7 @@ public class UserMapper {
 		return null;
 	}
 	
-	public static UserEntity map(UserTO userTO) {
+	public UserEntity map(UserTO userTO) {
 		if (userTO != null) {
 			return UserEntity.builder()
 					.eMail(userTO.getEMail())
@@ -34,12 +37,12 @@ public class UserMapper {
 		return null;
 	}
 	
-	public static List<UserTO> map2TO(List<UserEntity> userEntities) {
-		return userEntities.stream().map(UserMapper::map).collect(Collectors.toList());
+	public List<UserTO> map2TO(List<UserEntity> userEntities) {
+		return userEntities.stream().map(this::map).collect(Collectors.toList());
 	}
 	
-	public static List<UserEntity> map2Entity(List<UserTO> userTOs) {
-		return userTOs.stream().map(UserMapper::map).collect(Collectors.toList());
+	public List<UserEntity> map2Entity(List<UserTO> userTOs) {
+		return userTOs.stream().map(this::map).collect(Collectors.toList());
 	}
 
 }

@@ -6,11 +6,11 @@ import com.capgemini.jstk.boardgame.domain.UserEntity;
 
 public interface UserRepository {
 	
-	void createUser(String eMail, String name, String surname, String password, String motto);
+	UserEntity createUser(UserEntity user);
 	
 	UserEntity getUserByEMail(String eMail);
 	
-	void update(String eMail, String name, String surname, String password, String motto);
+	UserEntity update(UserEntity user);
 	
 	void delete(String eMail);
 	

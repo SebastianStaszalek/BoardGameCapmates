@@ -3,12 +3,15 @@ package com.capgemini.jstk.boardgame.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.capgemini.jstk.boardgame.domain.AvailibilityTimeEntity;
 import com.capgemini.jstk.boardgame.dto.AvailibilityTimeTO;
 
+@Component
 public class AvailibilityTimeMapper {
 
-	public static AvailibilityTimeTO map(AvailibilityTimeEntity availibilityTimeEntity) {
+	public AvailibilityTimeTO map(AvailibilityTimeEntity availibilityTimeEntity) {
 		if (availibilityTimeEntity != null) {
 			return new AvailibilityTimeTO(availibilityTimeEntity.getFrom(), availibilityTimeEntity.getTo(), 
 					availibilityTimeEntity.getComment());
@@ -16,7 +19,7 @@ public class AvailibilityTimeMapper {
 		return null;
 	}
 	
-	public static AvailibilityTimeEntity map (AvailibilityTimeTO availibilityTimeTO) {
+	public AvailibilityTimeEntity map (AvailibilityTimeTO availibilityTimeTO) {
 		if (availibilityTimeTO != null) {
 			return new AvailibilityTimeEntity(availibilityTimeTO.getFrom(), availibilityTimeTO.getTo(),
 					availibilityTimeTO.getComment());
@@ -24,11 +27,11 @@ public class AvailibilityTimeMapper {
 		return null;
 	}
 	
-	public static List<AvailibilityTimeTO> map2TO(List<AvailibilityTimeEntity> availibilityTimeEntities) {
-		return availibilityTimeEntities.stream().map(AvailibilityTimeMapper::map).collect(Collectors.toList());
+	public List<AvailibilityTimeTO> map2TO(List<AvailibilityTimeEntity> availibilityTimeEntities) {
+		return availibilityTimeEntities.stream().map(this::map).collect(Collectors.toList());
 	}
 	
-	public static List<AvailibilityTimeEntity> map2Entity(List<AvailibilityTimeTO> availibilityTimeTO) {
-		return availibilityTimeTO.stream().map(AvailibilityTimeMapper::map).collect(Collectors.toList());
+	public List<AvailibilityTimeEntity> map2Entity(List<AvailibilityTimeTO> availibilityTimeTO) {
+		return availibilityTimeTO.stream().map(this::map).collect(Collectors.toList());
 	}
 }
