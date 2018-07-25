@@ -47,16 +47,16 @@ public class UserGamesCollectionServiceImp implements UserGamesCollectionService
 		
 		userRepository.removeGameFromCollection(userEntity.getEMail(), gameEntity);
 	}
-	//TODO: refactor add method
+	
 	@Override
-	public GameTO addGameToGeneralCollection(UserTO userTO, GameTO gameTO) {
+	public Set<GameTO> addGameToGeneralCollection(UserTO userTO, GameTO gameTO) {
 		UserEntity userEntity = userMapper.map(userTO);
 		GameEntity gameEntity = gameMapper.map(gameTO);
 		
-		gameRepository.add(gameTO.getName(), gameTO.getDescription(), gameTO.getMinimumPlayers(), gameTO.getMaximumPlayers());
+		gameRepository.add(gameEntity);
 		userRepository.addGameToCollection(userEntity.getEMail(), gameEntity);
 	
-		return gameMapper.map(gameEntity);
+		return gameMapper.map2TO(userRepository.getGameCollection(userEntity.getEMail()));
 	}
 	
 	@Override

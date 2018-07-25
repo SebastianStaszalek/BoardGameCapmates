@@ -4,9 +4,9 @@ import com.capgemini.jstk.boardgame.domain.GameEntity;
 
 public interface GameRepository {
 	
-	void add(String name, String description, int minimumPlayers, int maximumPlayers);
+	void add(GameEntity game);
 	
-	void update(String name, String description, int minimumPlayers, int maximumPlayers);
+	void update(GameEntity game);
 	
 	GameEntity findByName(String name);
 	

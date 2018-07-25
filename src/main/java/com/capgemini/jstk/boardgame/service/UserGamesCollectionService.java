@@ -11,7 +11,7 @@ public interface UserGamesCollectionService {
 	
 	void removeGameFromCollection(UserTO userTO, GameTO gameTO);
 	
-	GameTO addGameToGeneralCollection(UserTO userTO, GameTO gameTO);
+	Set<GameTO> addGameToGeneralCollection(UserTO userTO, GameTO gameTO);
 	
 	Set<GameTO> addGameToUserCollection(UserTO userTO, GameTO gameTO);
 
