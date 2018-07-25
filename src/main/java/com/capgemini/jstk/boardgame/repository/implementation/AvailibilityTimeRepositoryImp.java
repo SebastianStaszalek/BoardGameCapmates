@@ -1,5 +1,6 @@
 package com.capgemini.jstk.boardgame.repository.implementation;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import com.capgemini.jstk.boardgame.repository.AvailibilityTimeRepository;
 public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository {
 
 	@Override
-	public void add(LocalDateTime from, LocalDateTime to) {
+	public void add(Instant from, Instant to) {
 		if (from != null && to != null) {
 			AvailibilityTimeEntity availibilityTime = new AvailibilityTimeEntity();
 			availibilityTime.setFrom(from);
@@ -30,7 +31,7 @@ public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository
 	}
 
 	@Override
-	public AvailibilityTimeEntity findByTimePeriod(UserEntity user, LocalDateTime from, LocalDateTime to) {
+	public AvailibilityTimeEntity findByTimePeriod(UserEntity user, Instant from, Instant to) {
 		if (from != null && to != null) {
 			List<AvailibilityTimeEntity> availibilityTime = findAll(user);
 			for (AvailibilityTimeEntity time : availibilityTime) {
@@ -50,7 +51,7 @@ public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository
 	}
 
 	@Override
-	public void update(AvailibilityTimeEntity time, LocalDateTime from, LocalDateTime to, String comment) {
+	public void update(AvailibilityTimeEntity time, Instant from, Instant to, String comment) {
 		time.setFrom(from);
 		time.setTo(to);
 		time.setComment(comment);

@@ -45,7 +45,6 @@ public class UserRepositoryImp implements UserRepository {
 				.orElse(null);
 	}
 
-	// TODO: walidacja hasla jak bedzie czas?
 	@Override
 	public void update(String eMail, String name, String surname, String password, String motto) {
 		Preconditions.checkNotNull(eMail, EMAIL_IS_NULL);

@@ -1,17 +1,15 @@
-package com.capgemini.jstk.boardgame.domain;
+package com.capgemini.jstk.boardgame.dto;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AvailibilityTimeEntity {
-	
+public class AvailibilityTimeTO {
+
 	private Instant from;
 	private Instant to;
 	private String comment;
-
 }

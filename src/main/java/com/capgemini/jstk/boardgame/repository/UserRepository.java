@@ -20,6 +20,8 @@ public interface UserRepository {
 	
 	void addRegistryToGameHistory(String eMail, GamesHistoryEntity gameHistory);
 	
+	
+	
 	//TODO: czy metoda dodajaca AvailibilityTime do listy konkretnego uzytkownika powinna byc tutaj czy w Service??!!
 	//TODO: to pytanie tyczy sie tez innych metod... np.: STATYSTKI, dodawanie gry do kolekcji z listy dostepnych gier,
 }
