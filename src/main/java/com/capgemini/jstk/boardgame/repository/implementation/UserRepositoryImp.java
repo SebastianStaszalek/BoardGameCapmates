@@ -3,6 +3,7 @@ package com.capgemini.jstk.boardgame.repository.implementation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.assertj.core.util.Preconditions;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
@@ -71,6 +72,14 @@ public class UserRepositoryImp implements UserRepository {
 		UserEntity user = getUserByEMail(eMail);
 		user.getGamesCollection().add(game);
 	}
+	
+	@Override
+	public Set<GameEntity> getGameCollection(String eMail) {
+		Preconditions.checkNotNull(eMail, EMAIL_IS_NULL);
+		
+		UserEntity user = getUserByEMail(eMail);
+		return user.getGamesCollection();
+	}
 
 	@Override
 	public void removeGameFromCollection(String eMail, GameEntity game) {
@@ -87,5 +96,7 @@ public class UserRepositoryImp implements UserRepository {
 		UserEntity user = getUserByEMail(eMail);
 		user.getGamesHistory().add(gameHistory);
 	}
+
+	
 
 }

@@ -9,6 +9,9 @@ import org.assertj.core.util.Preconditions;
 import com.capgemini.jstk.boardgame.domain.GameEntity;
 import com.capgemini.jstk.boardgame.repository.GameRepository;
 
+import net.bytebuddy.implementation.bytecode.Throw;
+
+
 
 public class GameRepositoryImp implements GameRepository {
 
@@ -45,7 +48,7 @@ public class GameRepositoryImp implements GameRepository {
 		gameToUpdate.setMaximumPlayers(maximumPlayers);
 		
 	}
-
+	//TODO: czy to jest dobry pomysl rzucac tutaj nulla
 	@Override
 	public GameEntity findByName(String name) {
 		Preconditions.checkNotNull(name, NAME_IS_NULL);
