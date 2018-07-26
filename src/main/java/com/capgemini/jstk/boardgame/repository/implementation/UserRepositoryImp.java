@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -43,6 +45,11 @@ public class UserRepositoryImp implements UserRepository {
 				.lastName("Kuzniar").motto("Teraz albo wcale!").build());
 	}
 
+
+	public void clear() {
+		this.usersList.clear();
+	}
+		
 	@Override
 	public UserEntity createUser(UserEntity newUser) {
 		Preconditions.checkNotNull(newUser, USER_IS_NULL);
@@ -167,7 +174,26 @@ public class UserRepositoryImp implements UserRepository {
 		return availibilityTimeList.stream().filter(a -> iD.equals(a.getId())).findAny()
 				.orElseThrow(() -> new RuntimeException(AVAILIBILITY_TIME_NOT_FOUND));
 	}
-	
-	
+
+
+	@Override
+	public List<UserEntity> getUsersByGameType(GameEntity game) {
+		Preconditions.checkNotNull(game, GAME_IS_EMPTY);
+
+		return usersList.stream()
+				.filter(u -> u.getGamesCollection().stream()
+				.anyMatch(g -> g.getName().equals(game.getName())))
+				.collect(Collectors.toList());
+		
+	}
+
+
+	@Override
+	public List<UserEntity> findUsersByAvailibilityTime(List<UserEntity> userList, AvailibilityTimeEntity time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

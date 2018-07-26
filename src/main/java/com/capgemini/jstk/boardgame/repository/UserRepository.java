@@ -10,6 +10,7 @@ import com.capgemini.jstk.boardgame.domain.UserEntity;
 
 public interface UserRepository {
 	
+		
 	UserEntity createUser(UserEntity user);
 	
 	UserEntity getUserByEMail(String eMail);
@@ -18,9 +19,11 @@ public interface UserRepository {
 	
 	void delete(String eMail);
 	
+	
 	void addGameToCollection(String eMail, GameEntity game);
 	
 	Set<GameEntity> getGameCollection(String eMail);
+	
 	
 	void addAvailibilityTimeToList(String eMail, AvailibilityTimeEntity availibilityTime);
 	
@@ -29,6 +32,11 @@ public interface UserRepository {
 	List<AvailibilityTimeEntity> updateAvailibilityTime(String eMail, AvailibilityTimeEntity availibilityTime);
 	
 	AvailibilityTimeEntity getAvailibilityTimeById(String eMail, Long iD);
+	
+	List<UserEntity> getUsersByGameType(GameEntity game);
+	
+	List<UserEntity> findUsersByAvailibilityTime(List<UserEntity> userList, AvailibilityTimeEntity time);
+	
 	
 	void removeGameFromCollection(String eMail, GameEntity game);
 	
