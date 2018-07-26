@@ -3,6 +3,7 @@ package com.capgemini.jstk.boardgame.service.implementation;
 import java.time.Instant;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.jstk.boardgame.domain.ChallengeEntity;
@@ -26,6 +27,7 @@ public class ChallengeServiceImp implements ChallengeService{
 	UserMapper userMapper;
 	GameMapper gameMapper;
 	
+	@Autowired
 	public ChallengeServiceImp(ChallengeRepository challengeRepository, ChallengeMapper challengeMapper,
 			UserMapper userMapper, GameMapper gameMapper) {
 		super();
