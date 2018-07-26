@@ -1,10 +1,7 @@
 package com.capgemini.jstk.boardgame.repository.implementation;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
-
-import javax.naming.directory.InvalidAttributesException;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +12,7 @@ import com.capgemini.jstk.boardgame.repository.AvailibilityTimeRepository;
 @Repository
 public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository {
 
+	//TODO: to jest nie potrzebne??!!
 	@Override
 	public void add(Instant from, Instant to) {
 		if (from != null && to != null) {

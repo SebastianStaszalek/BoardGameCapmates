@@ -1,7 +1,6 @@
 package com.capgemini.jstk.boardgame.repository;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.capgemini.jstk.boardgame.domain.AvailibilityTimeEntity;
@@ -18,6 +17,7 @@ public interface AvailibilityTimeRepository {
 	void update(AvailibilityTimeEntity time, Instant from, Instant to, String comment);
 	
 	void delete(AvailibilityTimeEntity time, String comment);
+	
 	
 	
 	//AvailibilityTime findByDate(LocalDateTime from, LocalDateTime to);

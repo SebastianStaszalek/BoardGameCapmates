@@ -4,15 +4,11 @@ package com.capgemini.jstk.boardgame.domain;
 import java.util.List;
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 public class UserEntity {
 	
 	private String eMail;

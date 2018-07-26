@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AvailibilityTimeEntity {
 	
+	private Long id;
 	private Instant from;
 	private Instant to;
 	private String comment;

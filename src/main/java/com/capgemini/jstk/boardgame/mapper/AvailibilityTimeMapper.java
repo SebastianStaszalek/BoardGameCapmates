@@ -13,7 +13,7 @@ public class AvailibilityTimeMapper {
 
 	public AvailibilityTimeTO map(AvailibilityTimeEntity availibilityTimeEntity) {
 		if (availibilityTimeEntity != null) {
-			return new AvailibilityTimeTO(availibilityTimeEntity.getFrom(), availibilityTimeEntity.getTo(), 
+			return new AvailibilityTimeTO(availibilityTimeEntity.getId(),availibilityTimeEntity.getFrom(), availibilityTimeEntity.getTo(), 
 					availibilityTimeEntity.getComment());
 		}
 		return null;
@@ -21,7 +21,7 @@ public class AvailibilityTimeMapper {
 	
 	public AvailibilityTimeEntity map (AvailibilityTimeTO availibilityTimeTO) {
 		if (availibilityTimeTO != null) {
-			return new AvailibilityTimeEntity(availibilityTimeTO.getFrom(), availibilityTimeTO.getTo(),
+			return new AvailibilityTimeEntity(availibilityTimeTO.getId(), availibilityTimeTO.getFrom(), availibilityTimeTO.getTo(),
 					availibilityTimeTO.getComment());
 		}
 		return null;

@@ -9,6 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class AvailibilityTimeTO {
 
+	private Long id;
 	private Instant from;
 	private Instant to;
 	private String comment;

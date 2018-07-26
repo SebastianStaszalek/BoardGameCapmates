@@ -2,6 +2,7 @@ package com.capgemini.jstk.boardgame.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Builder

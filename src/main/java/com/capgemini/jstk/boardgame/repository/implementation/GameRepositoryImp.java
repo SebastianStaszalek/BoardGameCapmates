@@ -2,14 +2,16 @@ package com.capgemini.jstk.boardgame.repository.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import javax.annotation.PostConstruct;
 
 import org.assertj.core.util.Preconditions;
+import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.boardgame.domain.GameEntity;
 import com.capgemini.jstk.boardgame.repository.GameRepository;
 
-
+@Repository
 public class GameRepositoryImp implements GameRepository {
 
 	private final static String NAME_IS_NULL = "The name should not be empty";
@@ -19,6 +21,15 @@ public class GameRepositoryImp implements GameRepository {
 	private final static String GAME_NOT_FOUND = "Game not found";
 	
 	List<GameEntity> gamesList = new ArrayList<>();
+	
+	@PostConstruct
+	public void initialize() {
+		gamesList.add(GameEntity.builder().name("5seconds").minimumPlayers(2).maximumPlayers(8).description("Think fast!").build());
+		gamesList.add(GameEntity.builder().name("Ships").minimumPlayers(2).maximumPlayers(2).description("Ships war").build());
+		gamesList.add(GameEntity.builder().name("Monopoly").minimumPlayers(2).maximumPlayers(5).description("Manage your country").build());
+		gamesList.add(GameEntity.builder().name("Chess").minimumPlayers(2).maximumPlayers(2).description("Classic game").build());
+		gamesList.add(GameEntity.builder().name("Duplo").minimumPlayers(2).maximumPlayers(5).build());
+	}
 	
 	@Override
 	public void add(GameEntity game) {
@@ -59,7 +70,7 @@ public class GameRepositoryImp implements GameRepository {
 	public void delete(String name) {
 		Preconditions.checkNotNull(name, NAME_IS_NULL);
 		
-		this.gamesList.remove(Optional.ofNullable(findByName(name)));
+		this.gamesList.remove(name);
 	}
 
 }
