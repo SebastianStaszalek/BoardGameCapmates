@@ -12,7 +12,6 @@ import com.capgemini.jstk.boardgame.repository.AvailibilityTimeRepository;
 @Repository
 public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository {
 
-	//TODO: to jest nie potrzebne??!!
 	@Override
 	public void add(Instant from, Instant to) {
 		if (from != null && to != null) {
@@ -33,19 +32,12 @@ public class AvailibilityTimeRepositoryImp implements AvailibilityTimeRepository
 		if (from != null && to != null) {
 			List<AvailibilityTimeEntity> availibilityTime = findAll(user);
 			for (AvailibilityTimeEntity time : availibilityTime) {
-				//TODO: dobrze sprawdzic okresy dostepnosci!
 				if (time.getFrom().isAfter(from) && time.getTo().isBefore(to)) {
 					return time;
 				}
 			}
 		}
 		return null;
-
-		// long numOfDaysBetween = ChronoUnit.DAYS.between(from, to);
-		// return IntStream.iterate(0, i -> i + 1)
-		// .limit(numOfDaysBetween)
-		// .mapToObj(i -> from.plusDays(i))
-		// .collect(Collectors.toList());
 	}
 
 	@Override

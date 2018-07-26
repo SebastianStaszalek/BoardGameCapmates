@@ -186,16 +186,25 @@ public class UserRepositoryImp implements UserRepository {
 				.filter(u -> u.getGamesCollection().stream()
 				.anyMatch(g -> g.getName().equals(game.getName())))
 				.collect(Collectors.toList());
-		
 	}
 
 
 	@Override
 	public List<UserEntity> findUsersByAvailibilityTime(List<UserEntity> userList, AvailibilityTimeEntity time) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return userList.stream()
+				.filter(a -> a.getAvailibilityTime().stream()
+						.anyMatch(t -> 
+								((t.getFrom().isAfter(time.getFrom()) && t.getFrom().isBefore(time.getTo()))
+								|| (t.getTo().isAfter(time.getFrom()) && t.getTo().isBefore(time.getTo())))
+								|| ((time.getTo().isAfter(t.getFrom()) && time.getTo().isBefore(t.getTo()))
+								|| (time.getFrom().isAfter(t.getFrom()) && time.getFrom().isBefore(t.getTo())))))
+				.collect(Collectors.toList());					
 	}
 
-
-
-}
+}	
+	
+	
+	
+	
+	

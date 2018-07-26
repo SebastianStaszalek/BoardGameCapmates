@@ -18,7 +18,4 @@ public interface AvailibilityTimeRepository {
 	
 	void delete(AvailibilityTimeEntity time, String comment);
 	
-	
-	
-	//AvailibilityTime findByDate(LocalDateTime from, LocalDateTime to);
 }

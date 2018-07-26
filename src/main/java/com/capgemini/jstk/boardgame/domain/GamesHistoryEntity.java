@@ -1,7 +1,6 @@
 package com.capgemini.jstk.boardgame.domain;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Set;
 
 import com.capgemini.jstk.boardgame.domain.enums.Result;

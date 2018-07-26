@@ -1,7 +1,6 @@
 package com.capgemini.jstk.boardgame.domain;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 import lombok.Builder;

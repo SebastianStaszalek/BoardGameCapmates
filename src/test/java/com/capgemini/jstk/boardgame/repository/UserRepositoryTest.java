@@ -20,6 +20,8 @@ public class UserRepositoryTest {
 	@Autowired
 	UserRepository userRepository;
 	
+	//TODO: Jak uzywac @PreConstruct i dzialac w kazdym tescie na liscie niezaleznie??
+	
 	@Test
 	public void shouldFindUserByEMail() {
 		//given

@@ -15,7 +15,7 @@ public class ChallengeRepositoryImp implements ChallengeRepository {
 	List<ChallengeEntity> challengesList = new ArrayList<>();
 	
 	@Override
-	public void createChallenge(UserEntity from, Set<UserEntity> to, GameEntity game, Instant date) {
+	public ChallengeEntity createChallenge(UserEntity from, Set<UserEntity> to, GameEntity game, Instant date) {
 		ChallengeEntity newChallenge = ChallengeEntity.builder()
 				.from(from)
 				.to(to)
@@ -24,6 +24,7 @@ public class ChallengeRepositoryImp implements ChallengeRepository {
 				.build();
 		
 		this.challengesList.add(newChallenge);
+		
+		return newChallenge;
 	}
-
 }

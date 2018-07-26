@@ -32,7 +32,7 @@ public class UserGamesCollectionServiceImp implements UserGamesCollectionService
 		this.gameRepository = gameRepository;
 		this.gameMapper = gameMapper;
 	}
-	//TODO: czy nie ucinam gdzies pol z uuUsera jezeli one nie dodaja sie w maperze?
+	
 	@Override
 	public Set<GameTO> getGamesCollection(UserTO userTO) {
 		UserEntity userEntity = userMapper.map(userTO);
@@ -70,7 +70,6 @@ public class UserGamesCollectionServiceImp implements UserGamesCollectionService
 		
 		return gameMapper.map2TO(gamesCollection);
 	}
-	
 	
 	
 }
