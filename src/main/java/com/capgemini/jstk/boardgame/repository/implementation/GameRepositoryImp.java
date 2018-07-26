@@ -9,6 +9,8 @@ import org.assertj.core.util.Preconditions;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.boardgame.domain.GameEntity;
+import com.capgemini.jstk.boardgame.domain.errors.GameDuplicateException;
+import com.capgemini.jstk.boardgame.domain.errors.GameNotFoundException;
 import com.capgemini.jstk.boardgame.repository.GameRepository;
 
 @Repository
@@ -17,7 +19,7 @@ public class GameRepositoryImp implements GameRepository {
 	private final static String NAME_IS_NULL = "The name should not be empty";
 	private final static String MINIMUM_IS_NULL = "The minimum number of players should not be empty";
 	private final static String MAXIMUM_IS_NULL = "The maximum number of players should not be empty";
-	private final static String NAME_DUPLICATE = "This name of the game already exists ";
+	private final static String GAME_DUPLICATE = "This name of the game already exists ";
 	private final static String GAME_NOT_FOUND = "Game not found";
 	
 	List<GameEntity> gamesList = new ArrayList<>();
@@ -38,7 +40,7 @@ public class GameRepositoryImp implements GameRepository {
 		Preconditions.checkNotNull(game.getMaximumPlayers(), MAXIMUM_IS_NULL);
 		
 		if (gamesList.stream().anyMatch(n -> n.getName().equals(game.getName()))) {
-			throw new RuntimeException(NAME_DUPLICATE);
+			throw new GameDuplicateException(GAME_DUPLICATE);
 		}
 		
 		this.gamesList.add(game);
@@ -63,7 +65,7 @@ public class GameRepositoryImp implements GameRepository {
 		return gamesList.stream()
 				.filter(n -> name.equals(n.getName()))
 				.findAny()
-				.orElseThrow(() -> new RuntimeException(GAME_NOT_FOUND));
+				.orElseThrow(() -> new GameNotFoundException(GAME_NOT_FOUND));
 	}
 
 	@Override

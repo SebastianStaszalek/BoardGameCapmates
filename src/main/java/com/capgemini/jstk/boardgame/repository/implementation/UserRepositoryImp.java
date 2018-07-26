@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +15,9 @@ import com.capgemini.jstk.boardgame.domain.AvailibilityTimeEntity;
 import com.capgemini.jstk.boardgame.domain.GameEntity;
 import com.capgemini.jstk.boardgame.domain.GamesHistoryEntity;
 import com.capgemini.jstk.boardgame.domain.UserEntity;
+import com.capgemini.jstk.boardgame.domain.errors.AvailibilityTimeException;
+import com.capgemini.jstk.boardgame.domain.errors.EmailDuplicateException;
+import com.capgemini.jstk.boardgame.domain.errors.UserNotFoundException;
 import com.capgemini.jstk.boardgame.repository.UserRepository;
 
 @Repository
@@ -55,7 +57,7 @@ public class UserRepositoryImp implements UserRepository {
 		Preconditions.checkNotNull(newUser, USER_IS_NULL);
 
 		if (usersList.stream().anyMatch(e -> e.getEMail().equals(newUser.getEMail()))) {
-			throw new RuntimeException(EMAIL_DUPLICATE);
+			throw new EmailDuplicateException(EMAIL_DUPLICATE);
 		}
 		this.usersList.add(newUser);
 		return newUser;
@@ -66,7 +68,7 @@ public class UserRepositoryImp implements UserRepository {
 		Preconditions.checkNotNull(eMail, EMAIL_IS_NULL);
 
 		return usersList.stream().filter(e -> eMail.equals(e.getEMail())).findAny()
-				.orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));
+				.orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
 	}
 
 	@Override
@@ -172,7 +174,7 @@ public class UserRepositoryImp implements UserRepository {
 		List<AvailibilityTimeEntity> availibilityTimeList = getAvailibilityTimeList(eMail);
 		
 		return availibilityTimeList.stream().filter(a -> iD.equals(a.getId())).findAny()
-				.orElseThrow(() -> new RuntimeException(AVAILIBILITY_TIME_NOT_FOUND));
+				.orElseThrow(() -> new AvailibilityTimeException(AVAILIBILITY_TIME_NOT_FOUND));
 	}
 
 
