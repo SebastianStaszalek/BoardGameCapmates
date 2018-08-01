@@ -17,12 +17,12 @@ import com.capgemini.jstk.boardgame.service.UserProfileService;
 
 @Service
 public class UserProfileServiceImp implements UserProfileService {
-	
+
 	private UserRepository userRepository;
 	private UserMapper userMapper;
-	
+
 	@Autowired
-	public UserProfileServiceImp(UserRepository userRepository,	UserMapper userMapper) {
+	public UserProfileServiceImp(UserRepository userRepository, UserMapper userMapper) {
 		this.userRepository = userRepository;
 		this.userMapper = userMapper;
 	}
@@ -30,6 +30,11 @@ public class UserProfileServiceImp implements UserProfileService {
 	@Override
 	public UserTO getProfileInformation(String eMail) {
 		return userMapper.map(userRepository.getUserByEMail(eMail));
+	}
+
+	@Override
+	public List<UserTO> getAllUsers() {
+		return userMapper.map2TO(userRepository.getAllUsers());
 	}
 
 	@Override
@@ -53,47 +58,50 @@ public class UserProfileServiceImp implements UserProfileService {
 
 	@Override
 	public List<UserTO> findUserByMultipleParam(UserSearchTO user) {
-		
+
 		String eMail = user.getEMail();
 		String firstName = user.getFirstName();
 		String lastName = user.getLastName();
 		String gameName = user.getGameName();
-		
+
 		List<UserEntity> resultList = new ArrayList<>();
-		
-		if(eMail.length() > 0) {
+
+		if (eMail.length() > 0) {
 			try {
 				UserEntity foundPlayer = userRepository.getUserByEMail(eMail);
 				resultList.add(foundPlayer);
 			} catch (UserNotFoundException ex) {
-				
 			}
 		}
-		
+
 		if (firstName.length() > 0) {
 			List<UserEntity> foundPlayers = userRepository.getUsersByFirstName(firstName);
-			resultList.addAll(foundPlayers);
+			if (resultList.isEmpty()) {
+				resultList.addAll(foundPlayers);
+			} else {
+				resultList.retainAll(foundPlayers);
+			}
 		}
-		
+
 		if (lastName.length() > 0) {
 			List<UserEntity> foundPlayers = userRepository.getUsersByLastName(lastName);
-			resultList.addAll(foundPlayers);
+			if (resultList.isEmpty()) {
+				resultList.addAll(foundPlayers);
+			} else {
+				resultList.retainAll(foundPlayers);
+			}
 		}
-		
-		if(gameName.length() > 0) {
+
+		if (gameName.length() > 0) {
 			List<UserEntity> foundPlayers = userRepository.getUsersByGameType(gameName);
-			resultList.addAll(foundPlayers);
+			if (resultList.isEmpty()) {
+				resultList.addAll(foundPlayers);
+			} else {
+				resultList.retainAll(foundPlayers);
+			}
 		}
-		
-		return userMapper.map2TO(resultList.stream()
-				.distinct()
-				.collect(Collectors.toList()));
+
+		return userMapper.map2TO(resultList);
 	}
 
 }
-
-
-
-
-
-

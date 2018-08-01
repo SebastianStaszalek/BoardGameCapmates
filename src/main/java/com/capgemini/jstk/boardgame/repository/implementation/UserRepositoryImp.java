@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
-import org.assertj.core.util.Preconditions;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.boardgame.domain.AvailibilityTimeEntity;
@@ -19,6 +18,7 @@ import com.capgemini.jstk.boardgame.domain.errors.AvailibilityTimeException;
 import com.capgemini.jstk.boardgame.domain.errors.EmailDuplicateException;
 import com.capgemini.jstk.boardgame.domain.errors.UserNotFoundException;
 import com.capgemini.jstk.boardgame.repository.UserRepository;
+import com.google.common.base.Preconditions;
 
 @Repository
 public class UserRepositoryImp implements UserRepository {
@@ -89,6 +89,12 @@ public class UserRepositoryImp implements UserRepository {
 		return usersList.stream()
 				.filter(l -> lastName.equalsIgnoreCase(l.getLastName()))
 				.collect(Collectors.toList());
+	}
+	
+
+	@Override
+	public List<UserEntity> getAllUsers() {
+		return this.usersList;
 	}
 
 	@Override
@@ -221,6 +227,8 @@ public class UserRepositoryImp implements UserRepository {
 								|| (time.getFrom().isAfter(t.getFrom()) && time.getFrom().isBefore(t.getTo())))))
 				.collect(Collectors.toList());					
 	}
+
+
 
 
 	

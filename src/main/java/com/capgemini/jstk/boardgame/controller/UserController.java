@@ -27,6 +27,10 @@ public class UserController {
 		this.userProfileService = userProfileService;
 	}
 	
+	@GetMapping(value = "/")
+	public List<UserTO> findtUserByEMail() {
+		return userProfileService.getAllUsers();
+	}
 	
 	@PostMapping(value = "/add")
 	public UserTO addNewUser(@RequestBody UserTO userTO) {
@@ -44,7 +48,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping(value = "/delete/{email}")
-	public void deleteUser(@PathVariable("e+mail") String eMail) {
+	public void deleteUser(@PathVariable("email") String eMail) {
 		userProfileService.deleteUser(eMail);
 	}
 	

@@ -68,7 +68,7 @@ public class UserPlayabilityServiceImp implements UserPlayabilityService {
 		AvailibilityTimeEntity timeEntity = availibilityTimeMapper.map(timeTO);
 		GameEntity gameEntity = gameMapper.map(gameTO);
 		
-		List<UserEntity> usersListWithTheSameGame = userRepository.getUsersByGameType(gameEntity);
+		List<UserEntity> usersListWithTheSameGame = userRepository.getUsersByGameType(gameEntity.getName());
 		List<UserEntity> usersListWithSimilarTime = userRepository.findUsersByAvailibilityTime(usersListWithTheSameGame, timeEntity);
 		
 		return userMapper.map2TO(usersListWithSimilarTime);

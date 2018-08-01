@@ -11,6 +11,8 @@ public interface UserProfileService {
 	
 	UserTO getProfileInformation(String eMail);
 	
+	List<UserTO> getAllUsers();
+	
 	List<UserTO> findUserByMultipleParam(UserSearchTO user);
 	
 	UserTO update(UserTO user);
