@@ -24,10 +24,12 @@ import com.capgemini.jstk.boardgame.repository.UserRepository;
 public class UserRepositoryImp implements UserRepository {
 
 	private final static String EMAIL_IS_NULL = "The e-mail should not be empty";
+	private final static String FIRST_NAME_IS_NULL = "The name should not be empty";
+	private final static String LAST_NAME_IS_NULL = "The last name should not be empty";
 	private final static String EMAIL_DUPLICATE = "The e-mail already exists, choose different one";
 	private final static String USER_IS_NULL = "The fields should not be empty";
 	private final static String USER_NOT_FOUND = "User not found";
-	private final static String GAME_IS_EMPTY = "Game should not be empty";
+	private final static String GAME_IS_EMPTY = "Game name should not be empty";
 	private final static String AVAILIBILITY_TIME_IS_NULL = "Availibility time should not be empty";
 	private final static String AVAILIBILITY_TIME_NOT_FOUND = "No match for this availibility time";
 
@@ -73,15 +75,20 @@ public class UserRepositoryImp implements UserRepository {
 	
 	@Override
 	public List<UserEntity> getUsersByFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		return null;
+		Preconditions.checkNotNull(firstName, FIRST_NAME_IS_NULL);
+		
+		return usersList.stream()
+				.filter(f -> firstName.equalsIgnoreCase(f.getFirstName()))
+				.collect(Collectors.toList());
 	}
 
 
 	@Override
 	public List<UserEntity> getUsersByLastName(String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		Preconditions.checkNotNull(lastName, LAST_NAME_IS_NULL);
+		return usersList.stream()
+				.filter(l -> lastName.equalsIgnoreCase(l.getLastName()))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -192,12 +199,12 @@ public class UserRepositoryImp implements UserRepository {
 
 
 	@Override
-	public List<UserEntity> getUsersByGameType(GameEntity game) {
-		Preconditions.checkNotNull(game, GAME_IS_EMPTY);
+	public List<UserEntity> getUsersByGameType(String gameName) {
+		Preconditions.checkNotNull(gameName, GAME_IS_EMPTY);
 
 		return usersList.stream()
 				.filter(u -> u.getGamesCollection().stream()
-				.anyMatch(g -> g.getName().equals(game.getName())))
+				.anyMatch(g -> g.getName().equalsIgnoreCase(gameName)))
 				.collect(Collectors.toList());
 	}
 

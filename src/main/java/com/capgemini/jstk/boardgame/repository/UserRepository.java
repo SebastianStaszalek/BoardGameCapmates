@@ -37,7 +37,7 @@ public interface UserRepository {
 	
 	AvailibilityTimeEntity getAvailibilityTimeById(String eMail, Long iD);
 	
-	List<UserEntity> getUsersByGameType(GameEntity game);
+	List<UserEntity> getUsersByGameType(String gameName);
 	
 	List<UserEntity> findUsersByAvailibilityTime(List<UserEntity> userList, AvailibilityTimeEntity time);
 	

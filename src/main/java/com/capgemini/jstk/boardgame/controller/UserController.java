@@ -1,5 +1,7 @@
 package com.capgemini.jstk.boardgame.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.jstk.boardgame.dto.UserSearchTO;
 import com.capgemini.jstk.boardgame.dto.UserTO;
 import com.capgemini.jstk.boardgame.service.UserProfileService;
 
@@ -41,8 +44,19 @@ public class UserController {
 	}
 	
 	@DeleteMapping(value = "/delete/{email}")
-	public void deleteUser(@PathVariable("email") String eMail) {
+	public void deleteUser(@PathVariable("e+mail") String eMail) {
 		userProfileService.deleteUser(eMail);
 	}
 	
+	@GetMapping(value = "/search")
+	public List<UserTO> findUsers(@RequestBody UserSearchTO user) {
+		return userProfileService.findUserByMultipleParam(user);
+	}
+	
 }
+
+
+
+
+
+
