@@ -15,6 +15,10 @@ public interface UserRepository {
 	
 	UserEntity getUserByEMail(String eMail);
 	
+	List<UserEntity> getUsersByFirstName(String firstName);
+	
+	List<UserEntity> getUsersByLastName(String lastName);
+	
 	UserEntity update(UserEntity user);
 	
 	void delete(String eMail);

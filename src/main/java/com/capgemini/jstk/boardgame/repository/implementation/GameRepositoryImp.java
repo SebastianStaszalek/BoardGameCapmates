@@ -71,8 +71,8 @@ public class GameRepositoryImp implements GameRepository {
 	@Override
 	public void delete(String name) {
 		Preconditions.checkNotNull(name, NAME_IS_NULL);
-		
-		this.gamesList.remove(name);
+		GameEntity gameToDelete = findByName(name);
+		this.gamesList.remove(gameToDelete);
 	}
 
 }

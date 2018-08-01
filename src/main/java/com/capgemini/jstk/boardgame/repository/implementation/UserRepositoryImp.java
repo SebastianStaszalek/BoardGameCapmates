@@ -70,6 +70,19 @@ public class UserRepositoryImp implements UserRepository {
 		return usersList.stream().filter(e -> eMail.equals(e.getEMail())).findAny()
 				.orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
 	}
+	
+	@Override
+	public List<UserEntity> getUsersByFirstName(String firstName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<UserEntity> getUsersByLastName(String lastName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public UserEntity update(UserEntity user) {
@@ -201,6 +214,9 @@ public class UserRepositoryImp implements UserRepository {
 								|| (time.getFrom().isAfter(t.getFrom()) && time.getFrom().isBefore(t.getTo())))))
 				.collect(Collectors.toList());					
 	}
+
+
+	
 
 }	
 	

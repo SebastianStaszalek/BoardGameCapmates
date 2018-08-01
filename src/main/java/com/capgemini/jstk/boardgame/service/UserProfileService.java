@@ -1,5 +1,7 @@
 package com.capgemini.jstk.boardgame.service;
 
+import java.util.List;
+
 import com.capgemini.jstk.boardgame.dto.UserTO;
 
 public interface UserProfileService {
@@ -8,6 +10,10 @@ public interface UserProfileService {
 	
 	UserTO getProfileInformation(String eMail);
 	
+	List<UserTO> findUserByMultipleParam(UserTO user, String gameName);
+	
 	UserTO update(UserTO user);
+	
+	void deleteUser(String eMail);
 	
 	}

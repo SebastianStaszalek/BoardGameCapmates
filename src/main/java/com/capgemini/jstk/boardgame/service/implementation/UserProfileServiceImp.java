@@ -1,5 +1,7 @@
 package com.capgemini.jstk.boardgame.service.implementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,21 @@ public class UserProfileServiceImp implements UserProfileService {
 		UserEntity entity = userMapper.map(user);
 		entity = userRepository.createUser(entity);
 		return userMapper.map(entity);
+	}
+
+	@Override
+	public void deleteUser(String eMail) {
+		userRepository.delete(eMail);
+	}
+
+	@Override
+	public List<UserTO> findUserByMultipleParam(UserTO user, String gameName) {
+		String eMail = user.getEMail();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		
+		
+		return null;
 	}
 
 }
