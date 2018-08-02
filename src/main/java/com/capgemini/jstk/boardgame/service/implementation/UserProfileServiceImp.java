@@ -66,7 +66,7 @@ public class UserProfileServiceImp implements UserProfileService {
 		List<UserEntity> resultList = userRepository.getAllUsers();
 		
 
-		if (eMail.length() > 0) {
+		if (eMail != null && eMail.length() > 0) {
 			try {
 				resultList = resultList.stream()
 						.filter(u -> u.getEMail().equals(eMail))
@@ -75,19 +75,19 @@ public class UserProfileServiceImp implements UserProfileService {
 			}
 		}
 
-		if (firstName.length() > 0) {
+		if (firstName != null && firstName.length() > 0) {
 			resultList = resultList.stream()
 					.filter(u -> u.getFirstName().equalsIgnoreCase(firstName))
 					.collect(Collectors.toList());
 		}
 
-		if (lastName.length() > 0) {
+		if (lastName != null && lastName.length() > 0) {
 			resultList = resultList.stream()
 					.filter(u -> u.getLastName().equalsIgnoreCase(lastName))
 					.collect(Collectors.toList());
 		}
 
-		if (gameName.length() > 0) {
+		if (gameName != null && gameName.length() > 0) {
 			resultList = resultList.stream()
 			.filter(u -> u.getGamesCollection().stream()
 			.anyMatch(g -> g.getName().equalsIgnoreCase(gameName)))
