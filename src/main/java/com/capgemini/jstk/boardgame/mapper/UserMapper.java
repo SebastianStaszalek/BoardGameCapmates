@@ -20,6 +20,7 @@ public class UserMapper {
 					.firstName(userEntity.getFirstName())
 					.lastName(userEntity.getLastName())
 					.motto(userEntity.getMotto())
+					.gamesCollection(userEntity.getGamesCollection())
 					.build();
 		}
 		return null;
@@ -33,6 +34,7 @@ public class UserMapper {
 					.firstName(userTO.getFirstName())
 					.lastName(userTO.getLastName())
 					.motto(userTO.getMotto())
+					.gamesCollection(userTO.getGamesCollection())
 					.build();
 		}
 		return null;
