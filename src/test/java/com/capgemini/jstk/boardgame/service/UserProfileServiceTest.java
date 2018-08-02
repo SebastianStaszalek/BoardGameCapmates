@@ -88,7 +88,7 @@ public class UserProfileServiceTest {
 				.password("mmm")
 				.build();
 		
-		Mockito.when(userRepository.update(Mockito.any(UserEntity.class))).thenReturn(user);
+		Mockito.when(userRepository.createUser(Mockito.any(UserEntity.class))).thenReturn(user);
 		//when
 		userProfileService.createUserProfile(userTO);
 		//then
