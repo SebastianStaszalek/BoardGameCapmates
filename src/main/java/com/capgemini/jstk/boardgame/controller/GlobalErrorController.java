@@ -20,6 +20,7 @@ public class GlobalErrorController {
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessage playerExceptionHandler(Exception ex) {
+		
 		LOGGER.error("Error in user service: ", ex);
 		return new ErrorMessage(ex.getMessage());
 	}
@@ -27,6 +28,7 @@ public class GlobalErrorController {
 	@ExceptionHandler(UserNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorMessage userNotFoundException(Exception ex) {
+		
 		LOGGER.error("Error in user service: ", ex);
 		return new ErrorMessage(ex.getMessage());
 	}
@@ -34,6 +36,7 @@ public class GlobalErrorController {
 	@ExceptionHandler(EmailDuplicateException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorMessage emailDuplicateException(Exception ex) {
+		
 		LOGGER.error("Error in user service: ", ex);
 		return new ErrorMessage(ex.getMessage());
 	}

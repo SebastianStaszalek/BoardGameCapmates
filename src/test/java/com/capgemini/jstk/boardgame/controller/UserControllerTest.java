@@ -1,9 +1,9 @@
 package com.capgemini.jstk.boardgame.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,7 +31,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.capgemini.jstk.boardgame.BoardgameApplication;
 import com.capgemini.jstk.boardgame.domain.GameEntity;
-import com.capgemini.jstk.boardgame.dto.GameTO;
 import com.capgemini.jstk.boardgame.dto.UserSearchTO;
 import com.capgemini.jstk.boardgame.dto.UserTO;
 import com.capgemini.jstk.boardgame.service.UserProfileService;
@@ -71,7 +70,7 @@ public class UserControllerTest {
 		Mockito.when(userProfileService.getProfileInformation(Mockito.any())).thenReturn(user);
 		
 		// when
-		ResultActions resultActions = mockMvc.perform(get("/users/find/{email}", "yes@wp.pl"));
+		ResultActions resultActions = mockMvc.perform(get("/users/{email}", "yes@wp.pl"));
 		
 		// then
 		resultActions.andExpect(status().isFound())
@@ -90,7 +89,7 @@ public class UserControllerTest {
         Mockito.when(userProfileService.getAllUsers()).thenReturn(userProfiles);
         
         //when
-        ResultActions resultActions = mockMvc.perform(get("/users/get"));
+        ResultActions resultActions = mockMvc.perform(get("/users/"));
         
         //then
         resultActions.andExpect(status().isFound()).andExpect(jsonPath("$[0]firstName")
@@ -109,7 +108,7 @@ public class UserControllerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		String newUser = mapper.writeValueAsString(userTO);
 		
-		ResultActions resultActions = mockMvc.perform(post("/users/add").content(newUser).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+		ResultActions resultActions = mockMvc.perform(post("/users/").content(newUser).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 		
 		//then
 		resultActions.andExpect(status().isOk()).andExpect(jsonPath("motto").value("YOLO!")).andReturn();
@@ -126,7 +125,7 @@ public class UserControllerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		String newUser = mapper.writeValueAsString(userTO);
 		
-		ResultActions resultActions = mockMvc.perform(put("/users/update").content(newUser).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+		ResultActions resultActions = mockMvc.perform(put("/users/").content(newUser).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 		
 		//then
 		resultActions.andExpect(status().isOk()).andExpect(jsonPath("lastName").value("Spencer")).andReturn();
@@ -146,6 +145,7 @@ public class UserControllerTest {
 		resultActions.andExpect(status().isOk()).andExpect(jsonPath("firstName").value("Mark")).andReturn();
 	}
 	
+	//TODO:dlaczego ten test nie przechodzi!? w Postmanie wyszukuje po roznych kryteriach
 	@Test
 	public void shouldFindUsersByMultipleParams() throws Exception {
 		//given
@@ -161,7 +161,7 @@ public class UserControllerTest {
 		Mockito.when(userProfileService.findUserByMultipleParam(Mockito.any(UserSearchTO.class))).thenReturn(usersProfiles);
 		
 		//when
-		UserSearchTO userSearchTO = UserSearchTO.builder().firstName("Seba").gameName("Chess").build();
+		UserSearchTO userSearchTO = UserSearchTO.builder().firstName("Seba").lastName(null).eMail(null).gameName("Chess").build();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String searchParams = mapper.writeValueAsString(userSearchTO);
@@ -175,6 +175,19 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$[2]firstName").value("Seba")).andReturn();
 	}
 
+	 @Test
+	    public void shouldReturnError404WhenNoPlayerWithWrongEMail() throws Exception {
+		 
+		 //given
+		 Mockito.when(userProfileService.getProfileInformation(Mockito.anyString())).thenReturn(null);
+		 
+	     //when
+	     ResultActions resultActions = mockMvc.perform(get("/users/{email}", "seba@gmail.com"));
+	        
+	     //then
+	     resultActions
+	        .andExpect(status().is4xxClientError());
+	    }
 	
 	
 }

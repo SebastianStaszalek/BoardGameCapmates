@@ -56,12 +56,12 @@ public class UserProfileServiceImp implements UserProfileService {
 	}
 
 	@Override
-	public List<UserTO> findUserByMultipleParam(UserSearchTO user) {
+	public List<UserTO> findUserByMultipleParam(UserSearchTO userTO) {
 
-		String eMail = user.getEMail();
-		String firstName = user.getFirstName();
-		String lastName = user.getLastName();
-		String gameName = user.getGameName();
+		String eMail = userTO.getEMail();
+		String firstName = userTO.getFirstName();
+		String lastName = userTO.getLastName();
+		String gameName = userTO.getGameName();
 
 		List<UserEntity> resultList = userRepository.getAllUsers();
 		
@@ -69,7 +69,7 @@ public class UserProfileServiceImp implements UserProfileService {
 		if (eMail != null && eMail.length() > 0) {
 			try {
 				resultList = resultList.stream()
-						.filter(u -> u.getEMail().equals(eMail))
+						.filter(user -> user.getEMail().equals(eMail))
 						.collect(Collectors.toList());
 			} catch (UserNotFoundException ex) {
 			}
@@ -77,20 +77,20 @@ public class UserProfileServiceImp implements UserProfileService {
 
 		if (firstName != null && firstName.length() > 0) {
 			resultList = resultList.stream()
-					.filter(u -> u.getFirstName().equalsIgnoreCase(firstName))
+					.filter(user -> user.getFirstName().equalsIgnoreCase(firstName))
 					.collect(Collectors.toList());
 		}
 
 		if (lastName != null && lastName.length() > 0) {
 			resultList = resultList.stream()
-					.filter(u -> u.getLastName().equalsIgnoreCase(lastName))
+					.filter(user -> user.getLastName().equalsIgnoreCase(lastName))
 					.collect(Collectors.toList());
 		}
 
 		if (gameName != null && gameName.length() > 0) {
 			resultList = resultList.stream()
-			.filter(u -> u.getGamesCollection().stream()
-			.anyMatch(g -> g.getName().equalsIgnoreCase(gameName)))
+			.filter(user -> user.getGamesCollection().stream()
+			.anyMatch(game -> game.getName().equalsIgnoreCase(gameName)))
 			.collect(Collectors.toList());
 		}
 
