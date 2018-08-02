@@ -109,10 +109,13 @@ public class UserRepositoryImp implements UserRepository {
 	}
 
 	@Override
-	public void delete(String eMail) {
+	public UserEntity delete(String eMail) {
 		Preconditions.checkNotNull(eMail, EMAIL_IS_NULL);
-
+		
+		UserEntity userToDelete = getUserByEMail(eMail);
 		usersList.remove(getUserByEMail(eMail));
+		
+		return userToDelete;
 	}
 
 	@Override

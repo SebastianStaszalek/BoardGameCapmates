@@ -17,6 +17,6 @@ public interface UserProfileService {
 	
 	UserTO update(UserTO user);
 	
-	void deleteUser(String eMail);
+	UserTO deleteUser(String eMail);
 	
 	}

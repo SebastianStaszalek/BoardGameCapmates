@@ -23,7 +23,7 @@ public interface UserRepository {
 	
 	UserEntity update(UserEntity user);
 	
-	void delete(String eMail);
+	UserEntity delete(String eMail);
 	
 	
 	void addGameToCollection(String eMail, GameEntity game);

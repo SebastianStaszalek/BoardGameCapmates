@@ -2,26 +2,19 @@ package com.capgemini.jstk.boardgame.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.jstk.boardgame.domain.errors.EmailDuplicateException;
-import com.capgemini.jstk.boardgame.domain.errors.ErrorMessage;
-import com.capgemini.jstk.boardgame.domain.errors.UserNotFoundException;
 import com.capgemini.jstk.boardgame.dto.UserSearchTO;
 import com.capgemini.jstk.boardgame.dto.UserTO;
 import com.capgemini.jstk.boardgame.service.UserProfileService;
@@ -66,8 +59,9 @@ public class UserController {
 	}
 	
 	@DeleteMapping(value = "/{email}")
-	public void deleteUser(@PathVariable("email") String eMail) {
-		userProfileService.deleteUser(eMail);
+	public ResponseEntity<UserTO> deleteUser(@PathVariable("email") String eMail) {
+		UserTO userToDelete = userProfileService.deleteUser(eMail);
+		return new ResponseEntity<>(userToDelete, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/search", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

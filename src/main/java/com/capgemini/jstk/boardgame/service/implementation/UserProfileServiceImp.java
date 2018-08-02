@@ -1,7 +1,7 @@
 package com.capgemini.jstk.boardgame.service.implementation;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,8 +51,8 @@ public class UserProfileServiceImp implements UserProfileService {
 	}
 
 	@Override
-	public void deleteUser(String eMail) {
-		userRepository.delete(eMail);
+	public UserTO deleteUser(String eMail) {
+		return userMapper.map(userRepository.delete(eMail));
 	}
 
 	@Override
@@ -63,41 +63,35 @@ public class UserProfileServiceImp implements UserProfileService {
 		String lastName = user.getLastName();
 		String gameName = user.getGameName();
 
-		List<UserEntity> resultList = new ArrayList<>();
+		List<UserEntity> resultList = userRepository.getAllUsers();
+		
 
 		if (eMail.length() > 0) {
 			try {
-				UserEntity foundPlayer = userRepository.getUserByEMail(eMail);
-				resultList.add(foundPlayer);
+				resultList = resultList.stream()
+						.filter(u -> u.getEMail().equals(eMail))
+						.collect(Collectors.toList());
 			} catch (UserNotFoundException ex) {
 			}
 		}
 
 		if (firstName.length() > 0) {
-			List<UserEntity> foundPlayers = userRepository.getUsersByFirstName(firstName);
-			if (resultList.isEmpty()) {
-				resultList.addAll(foundPlayers);
-			} else {
-				resultList.retainAll(foundPlayers);
-			}
+			resultList = resultList.stream()
+					.filter(u -> u.getFirstName().equalsIgnoreCase(firstName))
+					.collect(Collectors.toList());
 		}
 
 		if (lastName.length() > 0) {
-			List<UserEntity> foundPlayers = userRepository.getUsersByLastName(lastName);
-			if (resultList.isEmpty()) {
-				resultList.addAll(foundPlayers);
-			} else {
-				resultList.retainAll(foundPlayers);
-			}
+			resultList = resultList.stream()
+					.filter(u -> u.getLastName().equalsIgnoreCase(lastName))
+					.collect(Collectors.toList());
 		}
 
 		if (gameName.length() > 0) {
-			List<UserEntity> foundPlayers = userRepository.getUsersByGameType(gameName);
-			if (resultList.isEmpty()) {
-				resultList.addAll(foundPlayers);
-			} else {
-				resultList.retainAll(foundPlayers);
-			}
+			resultList = resultList.stream()
+			.filter(u -> u.getGamesCollection().stream()
+			.anyMatch(g -> g.getName().equalsIgnoreCase(gameName)))
+			.collect(Collectors.toList());
 		}
 
 		return userMapper.map2TO(resultList);
